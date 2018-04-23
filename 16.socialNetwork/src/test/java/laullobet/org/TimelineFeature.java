@@ -18,7 +18,7 @@ public class TimelineFeature {
 
     @Test
     public void display_timeline_by_user() {
-        socialNetwork = new SocialNetwork();
+        socialNetwork = new SocialNetwork(console, new MessageRepository());
         when(console.readLine())
                 .thenReturn("Alice -> I love the weather today")
                 .thenReturn("Bob -> Good game though.")
