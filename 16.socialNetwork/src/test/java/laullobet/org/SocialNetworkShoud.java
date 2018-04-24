@@ -18,10 +18,15 @@ public class SocialNetworkShoud {
     private SocialNetwork socialNetwork;
     @Mock
     private Console console;
+    private Clock clock;
 
     @Before
     public void set_up() {
-        socialNetwork = new SocialNetwork(console, messageRepository);
+        clock = new Clock();
+        socialNetwork = new SocialNetwork(console,
+                messageRepository,
+                new NoFormatFormatter(clock),
+                clock);
     }
 
     @Test
@@ -31,18 +36,18 @@ public class SocialNetworkShoud {
 
         socialNetwork.run();
 
-        verify(messageRepository).save(new Message("Bob", "Hola"));
+        verify(messageRepository).add(new Message("Bob", "Hola",0));
     }
 
     @Test
     public void
     print_all_messages_from_one_user() {
         when(messageRepository.getAllFrom("Bob")).thenReturn(new ArrayList<Message>(){{
-            add(new Message("Bob","Hola"));
+            add(new Message("Bob","Hola",0));
         }});
         when(messageRepository.getAllFrom("Alice")).thenReturn(new ArrayList<Message>(){{
-            add(new Message("Alice","Bien"));
-            add(new Message("Alice","Muy Bien"));
+            add(new Message("Alice","Bien",0));
+            add(new Message("Alice","Muy Bien",0));
         }});
         when(console.readLine()).thenReturn("Bob").thenReturn("Alice");
 
@@ -52,5 +57,17 @@ public class SocialNetworkShoud {
         verify(console).printLine("Hola");
         verify(console).printLine("Bien");
         verify(console).printLine("Muy Bien");
+    }
+
+
+    private class NoFormatFormatter extends TimeAgoMessageFormatter {
+        public NoFormatFormatter(Clock clock) {
+            super(clock);
+        }
+
+        @Override
+        public String format(Message m){
+            return m.getMessageBody();
+        }
     }
 }

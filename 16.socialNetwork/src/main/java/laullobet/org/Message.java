@@ -5,10 +5,12 @@ import java.util.Objects;
 public class Message {
     private final String user;
     private final String messageBody;
+    private int timestamp;
 
-    public Message(String user, String messageBody) {
+    public Message(String user, String messageBody, int timestamp) {
         this.user = user;
         this.messageBody = messageBody;
+        this.timestamp = timestamp;
     }
 
     @Override
@@ -28,5 +30,13 @@ public class Message {
 
     public String getMessageBody() {
         return messageBody;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public int getTimestamp() {
+        return timestamp;
     }
 }
