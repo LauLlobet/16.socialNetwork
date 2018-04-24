@@ -5,21 +5,23 @@ public class SocialNetwork {
     private final MessagePrinter messagePrinter;
     private final MessageRepository messageRepository;
     private TimeAgoMessageFormatter messageFormatter;
-    private Clock clock;
+    private MessageFactory messageFactory;
 
-    public SocialNetwork(Console console, MessagePrinter messagePrinter, MessageRepository messageRepository, Clock clock) {
+    public SocialNetwork(Console console, MessagePrinter messagePrinter,
+                         MessageRepository messageRepository,
+                         MessageFactory messageFactory) {
         this.console = console;
         this.messagePrinter = messagePrinter;
         this.messageRepository = messageRepository;
         this.messageFormatter = messageFormatter;
-        this.clock = clock;
+        this.messageFactory = messageFactory;
     }
 
     public void run() {
         String line = console.readLine();
         if(line.contains(" -> ")) {
             String[] parts = line.split(" -> ");
-            messageRepository.add(new Message(parts[0], parts[1],clock.getCurrentTimeMillis()));
+            messageRepository.add(messageFactory.createMessage(parts[0], parts[1]));
         }else{
             messageRepository
                     .getAllFrom(line)

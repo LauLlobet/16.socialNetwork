@@ -21,7 +21,7 @@ public class TimelineFeature {
     public void display_timeline_by_user() {
         clock = new Clock();
         MessagePrinter messagePrinter = new MessagePrinter(new TimeAgoMessageFormatter(clock), console);
-        socialNetwork = new SocialNetwork(console, messagePrinter, new MessageRepository(), clock);
+        socialNetwork = new SocialNetwork(console, messagePrinter, new MessageRepository(), new MessageFactory());
         when(console.readLine())
                 .thenReturn("Alice -> I love the weather today")
                 .thenReturn("Bob -> Good game though.")

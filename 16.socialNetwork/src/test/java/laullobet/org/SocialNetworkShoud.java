@@ -28,7 +28,7 @@ public class SocialNetworkShoud {
         clock = new Clock();
         socialNetwork = new SocialNetwork(console, messagePrinter,
                 messageRepository,
-                clock);
+                new MessageFactory());
     }
 
     @Test
@@ -59,15 +59,4 @@ public class SocialNetworkShoud {
         verify(messagePrinter).printMessage(m2);
     }
 
-
-    private class NoFormatFormatter extends TimeAgoMessageFormatter {
-        public NoFormatFormatter(Clock clock) {
-            super(clock);
-        }
-
-        @Override
-        public String format(Message m){
-            return m.getMessageBody();
-        }
-    }
 }

@@ -10,5 +10,4 @@ public class Clock {
     public void setCurrentTimeMillis(int millis) {
         this.currentTimeMillis = millis;
     }
-
 }
