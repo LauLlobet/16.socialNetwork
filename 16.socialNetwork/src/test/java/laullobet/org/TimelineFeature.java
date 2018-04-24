@@ -14,14 +14,14 @@ public class TimelineFeature {
     Console console;
 
     private SocialNetwork socialNetwork;
+    @Mock
     private Clock clock;
 
 
     @Test
     public void display_timeline_by_user() {
-        clock = new Clock();
         MessagePrinter messagePrinter = new MessagePrinter(new TimeAgoMessageFormatter(clock), console);
-        socialNetwork = new SocialNetwork(console, messagePrinter, new MessageRepository(), new MessageFactory());
+        socialNetwork = new SocialNetwork(console, messagePrinter, new MessageRepository(), new MessageFactory(clock));
         when(console.readLine())
                 .thenReturn("Alice -> I love the weather today")
                 .thenReturn("Bob -> Good game though.")
@@ -29,16 +29,15 @@ public class TimelineFeature {
                 .thenReturn("Alice")
                 .thenReturn("Bob");
 
-        clock.setCurrentTimeMillis(-5*60*1000);
-        socialNetwork.run();
+        when(clock.getCurrentTimeMillis())
+                .thenReturn(-5*60*1000)
+                .thenReturn(-2*1000)
+                .thenReturn(-2*60*1000)
+                .thenReturn(0);
 
-        clock.setCurrentTimeMillis(-2*1000);
         socialNetwork.run();
-
-        clock.setCurrentTimeMillis(-2*60*1000);
         socialNetwork.run();
-
-        clock.setCurrentTimeMillis(0);
+        socialNetwork.run();
         socialNetwork.run();
         socialNetwork.run();
 

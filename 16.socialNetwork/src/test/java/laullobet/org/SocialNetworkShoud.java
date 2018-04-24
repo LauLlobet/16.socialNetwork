@@ -28,7 +28,7 @@ public class SocialNetworkShoud {
         clock = new Clock();
         socialNetwork = new SocialNetwork(console, messagePrinter,
                 messageRepository,
-                new MessageFactory());
+                new MessageFactory(clock));
     }
 
     @Test

@@ -10,5 +10,6 @@ public class MessagePrinter {
     }
 
     public void printMessage(Message message) {
+        console.printMessage(timeAgoMessageFormatter.format(message));
     }
 }
