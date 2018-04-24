@@ -1,7 +1,7 @@
 package laullobet.org;
 
 public class Console {
-    public void printLine(String line) {
+    public void printMessage(String line) {
         throw new UnsupportedOperationException();
     }
 

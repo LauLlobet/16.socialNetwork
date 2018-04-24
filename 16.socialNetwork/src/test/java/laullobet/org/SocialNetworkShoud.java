@@ -17,15 +17,17 @@ public class SocialNetworkShoud {
     private MessageRepository messageRepository;
     private SocialNetwork socialNetwork;
     @Mock
-    private Console console;
+    private MessagePrinter messagePrinter;
     private Clock clock;
+
+    @Mock
+    private Console console;
 
     @Before
     public void set_up() {
         clock = new Clock();
-        socialNetwork = new SocialNetwork(console,
+        socialNetwork = new SocialNetwork(console, messagePrinter,
                 messageRepository,
-                new NoFormatFormatter(clock),
                 clock);
     }
 
@@ -42,16 +44,19 @@ public class SocialNetworkShoud {
     @Test
     public void
     print_all_messages_from_one_user() {
+        Message m1 = new Message("Alice", "Bien", 0);
+        Message m2 = new Message("Alice", "Muy Bien", 0);
         when(messageRepository.getAllFrom("Alice")).thenReturn(new ArrayList<Message>(){{
-            add(new Message("Alice","Bien",0));
-            add(new Message("Alice","Muy Bien",0));
+            add(m1);
+            add(m2);
         }});
-        when(console.readLine()).thenReturn("Bob").thenReturn("Alice");
+
+        when(console.readLine()).thenReturn("Alice");
 
         socialNetwork.run();
 
-        verify(console).printLine("Bien");
-        verify(console).printLine("Muy Bien");
+        verify(messagePrinter).printMessage(m1);
+        verify(messagePrinter).printMessage(m2);
     }
 
 

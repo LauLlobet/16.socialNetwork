@@ -2,12 +2,14 @@ package laullobet.org;
 
 public class SocialNetwork {
     private final Console console;
+    private final MessagePrinter messagePrinter;
     private final MessageRepository messageRepository;
     private TimeAgoMessageFormatter messageFormatter;
     private Clock clock;
 
-    public SocialNetwork(Console console, MessageRepository messageRepository, TimeAgoMessageFormatter messageFormatter, Clock clock) {
+    public SocialNetwork(Console console, MessagePrinter messagePrinter, MessageRepository messageRepository, Clock clock) {
         this.console = console;
+        this.messagePrinter = messagePrinter;
         this.messageRepository = messageRepository;
         this.messageFormatter = messageFormatter;
         this.clock = clock;
@@ -22,8 +24,7 @@ public class SocialNetwork {
             messageRepository
                     .getAllFrom(line)
                     .stream()
-                    .map(m -> messageFormatter.format(m))
-                    .forEach(str -> console.printLine(str));
+                    .forEach(m -> messagePrinter.printMessage(m));
         }
     }
 }

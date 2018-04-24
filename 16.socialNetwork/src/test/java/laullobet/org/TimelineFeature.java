@@ -20,7 +20,8 @@ public class TimelineFeature {
     @Test
     public void display_timeline_by_user() {
         clock = new Clock();
-        socialNetwork = new SocialNetwork(console, new MessageRepository(), new TimeAgoMessageFormatter(clock), clock);
+        MessagePrinter messagePrinter = new MessagePrinter(new TimeAgoMessageFormatter(clock), console);
+        socialNetwork = new SocialNetwork(console, messagePrinter, new MessageRepository(), clock);
         when(console.readLine())
                 .thenReturn("Alice -> I love the weather today")
                 .thenReturn("Bob -> Good game though.")
@@ -41,8 +42,8 @@ public class TimelineFeature {
         socialNetwork.run();
         socialNetwork.run();
 
-        verify(console).printLine("I love the weather today (5 minutes ago)");
-        verify(console).printLine("Good game though. (2 seconds ago)");
-        verify(console).printLine("Damn! We lost! (2 minutes ago)");
+        verify(console).printMessage("I love the weather today (5 minutes ago)");
+        verify(console).printMessage("Good game though. (2 seconds ago)");
+        verify(console).printMessage("Damn! We lost! (2 minutes ago)");
     }
 }
