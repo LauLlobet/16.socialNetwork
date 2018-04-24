@@ -42,9 +42,6 @@ public class SocialNetworkShoud {
     @Test
     public void
     print_all_messages_from_one_user() {
-        when(messageRepository.getAllFrom("Bob")).thenReturn(new ArrayList<Message>(){{
-            add(new Message("Bob","Hola",0));
-        }});
         when(messageRepository.getAllFrom("Alice")).thenReturn(new ArrayList<Message>(){{
             add(new Message("Alice","Bien",0));
             add(new Message("Alice","Muy Bien",0));
@@ -52,9 +49,7 @@ public class SocialNetworkShoud {
         when(console.readLine()).thenReturn("Bob").thenReturn("Alice");
 
         socialNetwork.run();
-        socialNetwork.run();
 
-        verify(console).printLine("Hola");
         verify(console).printLine("Bien");
         verify(console).printLine("Muy Bien");
     }
