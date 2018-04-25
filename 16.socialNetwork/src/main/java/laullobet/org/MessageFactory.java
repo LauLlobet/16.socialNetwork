@@ -5,7 +5,7 @@ public class MessageFactory {
 
     private Clock clock;
 
-    public MessageFactory(Clock clock) {
+    MessageFactory(Clock clock) {
         this.clock = clock;
     }
 

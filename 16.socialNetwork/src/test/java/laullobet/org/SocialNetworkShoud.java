@@ -8,6 +8,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -22,13 +23,18 @@ public class SocialNetworkShoud {
 
     @Mock
     private Console console;
+    @Mock
+    private FollowedRepository followedRepository;
+
+    @Mock
+    private Message aliceMessage2, aliceMessage1, bobMessage1;
 
     @Before
     public void set_up() {
         clock = new Clock();
-        socialNetwork = new SocialNetwork(console, messagePrinter,
-                messageRepository,
-                new MessageFactory(clock));
+        MessageFactory messageFactory = new MessageFactory(clock);
+        CommandFactory commandFactory = new CommandFactory(messagePrinter, messageRepository, messageFactory, console, followedRepository);
+        socialNetwork = new SocialNetwork(commandFactory, console);
     }
 
     @Test
@@ -38,7 +44,7 @@ public class SocialNetworkShoud {
 
         socialNetwork.run();
 
-        verify(messageRepository).add(new Message("Bob", "Hola",0));
+        verify(messageRepository).add(new Message("Bob", "Hola", 0));
     }
 
     @Test
@@ -46,7 +52,7 @@ public class SocialNetworkShoud {
     print_all_messages_from_one_user() {
         Message m1 = new Message("Alice", "Bien", 0);
         Message m2 = new Message("Alice", "Muy Bien", 0);
-        when(messageRepository.getAllFrom("Alice")).thenReturn(new ArrayList<Message>(){{
+        when(messageRepository.getAllFrom("Alice")).thenReturn(new ArrayList<Message>() {{
             add(m1);
             add(m2);
         }});
@@ -58,5 +64,37 @@ public class SocialNetworkShoud {
         verify(messagePrinter).printMessage(m1);
         verify(messagePrinter).printMessage(m2);
     }
+
+    @Test
+    public void
+    store_the_follower_in_repository() {
+        when(console.readLine()).thenReturn("Alice follows Bob");
+
+        socialNetwork.run();
+
+        verify(followedRepository).add("Alice", "Bob");
+    }
+
+    @Test
+    public void
+    call_the_printer_with_followed_messages_including_the_user_ones() {
+        ArrayList<String> followedIncludingSelf = new ArrayList<String>(){{
+            add("Ann");
+            add("Bob");
+            add("Alice");
+        }};
+        ArrayList<Message> wallMessages = new ArrayList<Message>() {{
+            add(aliceMessage1);
+        }};
+
+        when(console.readLine()).thenReturn("Alice wall");
+        when(followedRepository.getFollowedWithItself("Alice")).thenReturn(followedIncludingSelf);
+        when(messageRepository.getAllFrom(followedIncludingSelf)).thenReturn(wallMessages);
+
+        socialNetwork.run();
+
+        verify(messagePrinter).printMessagesWithAuthor(wallMessages);
+    }
+
 
 }

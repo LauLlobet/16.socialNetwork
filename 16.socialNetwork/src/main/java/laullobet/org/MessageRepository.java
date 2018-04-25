@@ -16,4 +16,8 @@ public class MessageRepository {
                 .filter(message -> message.getUser().equals(user))
                 .collect(Collectors.toList());
     }
+
+    public ArrayList<Message> getAllFrom(ArrayList<String> strings) {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -7,7 +7,7 @@ public class Message {
     private final String messageBody;
     private int timestamp;
 
-    public Message(String user, String messageBody, int timestamp) {
+    Message(String user, String messageBody, int timestamp) {
         this.user = user;
         this.messageBody = messageBody;
         this.timestamp = timestamp;
