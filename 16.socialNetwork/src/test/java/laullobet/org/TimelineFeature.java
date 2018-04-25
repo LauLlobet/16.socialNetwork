@@ -1,5 +1,6 @@
 package laullobet.org;
 
+import laullobet.org.Commands.CommandFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
