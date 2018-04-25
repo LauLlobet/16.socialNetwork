@@ -4,10 +4,12 @@ import java.util.List;
 
 public class MessagePrinter {
     private final TimeAgoMessageFormatter timeAgoMessageFormatter;
+    private final AuthorAndTimeAgoMessageFormatter authorFormatter;
     private final Console console;
 
-    public MessagePrinter(TimeAgoMessageFormatter timeAgoMessageFormatter, Console console) {
+    public MessagePrinter(TimeAgoMessageFormatter timeAgoMessageFormatter, AuthorAndTimeAgoMessageFormatter authorFormatter, Console console) {
         this.timeAgoMessageFormatter = timeAgoMessageFormatter;
+        this.authorFormatter = authorFormatter;
         this.console = console;
     }
 
@@ -15,11 +17,8 @@ public class MessagePrinter {
         console.printMessage(timeAgoMessageFormatter.format(message));
     }
 
-    public void printMessageWithAuthor(Message message) {
-        throw new UnsupportedOperationException();
-    }
-
     public void printMessagesWithAuthor(List<Message> messages) {
-        throw new UnsupportedOperationException();
+        messages.stream()
+                .map(message -> authorFormatter.format(message)).forEach(x -> System.out.println(x));
     }
 }

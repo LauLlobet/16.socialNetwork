@@ -28,7 +28,9 @@ public class WallFeature {
 
     @Before
     public void getCommandFactory() {
-        MessagePrinter messagePrinter = new MessagePrinter(new TimeAgoMessageFormatter(clock), console);
+        MessagePrinter messagePrinter = new MessagePrinter(new TimeAgoMessageFormatter(clock),
+                new AuthorAndTimeAgoMessageFormatter(clock), console);
+
         MessageFactory messageFactory = new MessageFactory(clock);
         CommandFactory commandFactory;
         FollowedRepository followersRepository = new FollowedRepository();

@@ -1,11 +1,6 @@
-package laullobet.org.features;
+package laullobet.org.Commands;
 
-import laullobet.org.Commands.Command;
-import laullobet.org.Commands.CommandFactory;
-import laullobet.org.Commands.CreateFollowerComand;
 import org.junit.Test;
-
-import javax.xml.stream.FactoryConfigurationError;
 
 import static junit.framework.TestCase.assertTrue;
 
