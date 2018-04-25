@@ -8,7 +8,7 @@ public class CommandFactoryShould {
 
     @Test
     public void
-    should_convert_line_with_follows_to_follow_instruction() {
+    convert_line_with_follows_to_follow_instruction() {
         //TODO: how you test a factory/command without talking about implementation
         CommandFactory comandFactory = new CommandFactory(null,null,
                 null,null,null);

@@ -6,13 +6,9 @@ public class FollowedRepository {
     private HashMap<String,ArrayList<String>> followedHash = new HashMap<>();
 
     public void add(String follower, String followed) {
-        ArrayList<String> followerArray = Optional
-                .ofNullable( followedHash.get(follower))
-                .orElseGet(()->{
-                    followedHash.put(follower,new ArrayList<>());
-                    return followedHash.get(follower);
-                });
+        ArrayList<String> followerArray = followedHash.getOrDefault(follower, new ArrayList<>());
         followerArray.add(followed);
+        followedHash.put(follower,followerArray);
 
     }
 

@@ -20,9 +20,8 @@ public class MessagePrinterShould {
     @Mock
     private Console console;
     @Mock
+    private
     AuthorAndTimeAgoMessageFormatter authorAndTimeAgoMessageFormatter;
-
-    private MessagePrinter messagePrinter;
 
     @Test
     public void
@@ -32,7 +31,7 @@ public class MessagePrinterShould {
             add(message);
             add(message);
         }};
-        messagePrinter = new MessagePrinter(null, authorAndTimeAgoMessageFormatter, console);
+        MessagePrinter messagePrinter = new MessagePrinter(null, authorAndTimeAgoMessageFormatter, console);
 
         messagePrinter.printMessagesWithAuthor(messages);
 
