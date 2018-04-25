@@ -1,7 +1,9 @@
 package laullobet.org;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MessageRepository {
@@ -17,7 +19,10 @@ public class MessageRepository {
                 .collect(Collectors.toList());
     }
 
-    public ArrayList<Message> getAllFrom(ArrayList<String> strings) {
-        throw new UnsupportedOperationException();
+    public List<Message> getAllFrom(Set<String> users) {
+        return list.stream()
+                .filter(message -> users.contains(message.getUser()))
+                .sorted(Comparator.comparingInt(Message::getTimestamp))
+                .collect(Collectors.toList());
     }
 }

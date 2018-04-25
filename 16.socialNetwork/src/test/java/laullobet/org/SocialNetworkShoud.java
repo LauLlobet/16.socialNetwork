@@ -8,6 +8,9 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -79,12 +82,12 @@ public class SocialNetworkShoud {
     @Test
     public void
     call_the_printer_with_followed_messages_including_the_user_ones() {
-        ArrayList<String> followedIncludingSelf = new ArrayList<String>(){{
+        Set<String> followedIncludingSelf = new HashSet<String>(){{
             add("Ann");
             add("Bob");
             add("Alice");
         }};
-        ArrayList<Message> wallMessages = new ArrayList<Message>() {{
+        List<Message> wallMessages = new ArrayList<Message>() {{
             add(aliceMessage1);
         }};
 

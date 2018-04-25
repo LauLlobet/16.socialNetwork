@@ -1,6 +1,6 @@
 package laullobet.org;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MessagePrinter {
     private final TimeAgoMessageFormatter timeAgoMessageFormatter;
@@ -19,7 +19,7 @@ public class MessagePrinter {
         throw new UnsupportedOperationException();
     }
 
-    public void printMessagesWithAuthor(ArrayList<Message> messages) {
+    public void printMessagesWithAuthor(List<Message> messages) {
         throw new UnsupportedOperationException();
     }
 }

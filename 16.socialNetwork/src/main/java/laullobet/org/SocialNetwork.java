@@ -7,7 +7,7 @@ public class SocialNetwork {
     private final CommandFactory commandFactory;
     private final Console console;
 
-    SocialNetwork(CommandFactory commandFactory, Console console) {
+    public SocialNetwork(CommandFactory commandFactory, Console console) {
         this.commandFactory = commandFactory;
         this.console = console;
     }

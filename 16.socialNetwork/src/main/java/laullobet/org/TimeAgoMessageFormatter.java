@@ -3,7 +3,7 @@ package laullobet.org;
 public class TimeAgoMessageFormatter implements MessageFormatter {
     private final Clock clock;
 
-    TimeAgoMessageFormatter(Clock clock) {
+    public TimeAgoMessageFormatter(Clock clock) {
 
         this.clock = clock;
     }
